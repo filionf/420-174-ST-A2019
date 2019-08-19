@@ -1,3 +1,8 @@
+---
+layout: default
+title: Test
+---
+
 # 420-174-ST
 Suppléments technologiques  
 Automne 2019
