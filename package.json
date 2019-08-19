@@ -1,0 +1,20 @@
+{
+  "name": "174-st-a2019",
+  "version": "1.0.0",
+  "description": "Notes de cours 420-174-ST (A2019)",
+  "main": "index.md",
+  "scripts": {
+    "gem": "gem install jekyll bundler; bundle install;",
+    "start": "bundle exec jekyll serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filionf/420-174-ST-A2019.git"
+  },
+  "author": "Francis Filion",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/filionf/420-174-ST-A2019/issues"
+  },
+  "homepage": "https://github.com/filionf/420-174-ST-A2019#readme"
+}
