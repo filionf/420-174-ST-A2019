@@ -1,4 +1,6 @@
-# ASP.NET Core
+---
+title: ASP.NET Core
+---
 
 1. [Introduction](#/slides/intro)
 2. [Modèles](#/slides/modèles)
