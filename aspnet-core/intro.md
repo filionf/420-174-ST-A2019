@@ -59,7 +59,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 ## Paramètres
-On peut ajouter un fichier appsettings.json au niveau racine du projet. L’objectif de ce fichier est de pouvoir changer le comportement ou de reconfigurer l’application rapidement. C’est également le mécanisme à utiliser lorsqu’on déploie pour divers environnements: développement, test, staging, production, … Le contenu du fichier est du JSON standard.
+On peut ajouter un fichier `appsettings.json` au niveau racine du projet. L’objectif de ce fichier est de pouvoir changer le comportement ou de reconfigurer l’application rapidement. C’est également le mécanisme à utiliser lorsqu’on déploie pour divers environnements: développement, test, staging, production, ... Le contenu du fichier est du JSON standard.
 
 Exemple :
 ```json
@@ -127,5 +127,5 @@ Les valeurs standards sont:
 On peut aussi créer un fichier de paramètres par environnement `appsettings.{environnement}.json`. Les paramètres de l’environnement seront appliqués par-dessus ceux du fichier par défaut. On peut donc y inclure que les paramètres qui changent selon la configuration.
 
 ###	IHostingEnvironment
-L’interface possède quelques fonctions utilitaires pour déterminer facilement quel est l’environnement utilisé ([Documentation officielle](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment?view=aspnetcore-2.1))
+L’interface possède quelques fonctions utilitaires pour déterminer facilement quel est l’environnement utilisé ([Documentation officielle](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment?view=aspnetcore-2.1){:target="_blank"})
 
