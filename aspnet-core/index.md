@@ -2,7 +2,7 @@
 title: ASP.NET Core
 ---
 
-1. [Introduction](#/slides/intro)
+1. [Introduction](intro)
 2. [Modèles](#/slides/modèles)
 3. [Razor](#/slides/razor)
 4. [Gestion d'erreurs](#/slides/erreurs)
