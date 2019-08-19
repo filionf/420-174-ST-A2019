@@ -1,4 +1,3 @@
-description: Notes de cours
 plugins:
   - jekyll-relative-links
 relative_links:
@@ -6,4 +5,4 @@ relative_links:
   collections: true
 show_downloads: false
 theme: jekyll-theme-tactile
-title: 420-174-ST A2019 (Suppléments technologiques)
+title: 420-174-ST
