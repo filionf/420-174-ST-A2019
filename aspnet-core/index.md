@@ -3,11 +3,11 @@ title: ASP.NET Core
 ---
 
 1. [Introduction](intro)
-2. [Modèles](#/slides/modèles)
-3. [Razor](#/slides/razor)
-4. [Gestion d'erreurs](#/slides/erreurs)
-5. [Middleware](#/slides/middleware)
-6. [Authentification](#/slides/auth)
-7. [Azure](#/slides/azure)
-8. [MVC](#/slides/mvc)
+2. [Modèles](models)
+3. [Razor](razor)
+4. [Gestion d'erreurs](errors)
+5. [Middleware](middleware)
+6. [Authentification](auth)
+7. [Azure](azure)
+8. [MVC](mvc)
 

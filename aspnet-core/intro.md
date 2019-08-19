@@ -6,13 +6,11 @@ title: ASP.NET Core
 
 ASP.NET utilise le Framework .NET, dont la création de la version 1.0 remonte à 2002. Dans la révision de ces plateformes, Microsoft a décidé de lancer .NET Standard et .NET Core.
 
-.NET Core est une nouvelle implémentation du Framework .NET dont l’objectif et de créer des applications multiplateformes. C’était aussi l’idée originale du 
-
-.NET Framework, mais elle ne s’est jamais vraiment popularisée. 
+.NET Core est une nouvelle implémentation du Framework .NET dont l’objectif et de créer des applications multiplateformes. C’était aussi l’idée originale du .NET Framework, mais elle ne s’est jamais vraiment popularisée. 
 
 .NET Standard est en ensemble d’API qui doit être implémenté par chaque implémentation de .NET. En ciblant .NET Standard, on s’assure que notre librairie pourra être utilisé par chacune des implémentations.
 
-![.NET Standard](net-standard.png)
+![.NET Standard](images/net-standard.png)
 
 
 ## Traitement des requêtes
@@ -38,11 +36,11 @@ Lorsqu’une requête est reçue par l’application, c’est un système de cha
 ## Dependency Injection
 Le système de dépendance d’ASP.NET intègre le patron d’injection de dépendances. Pour fonctionner, on créera habituellement l’interface du service (optionnelle) et son implémentation.
 ```cs
-interface IMaDépendance {
+interface IMaDependance {
 
 }
 
-class MaDépendance : IMaDépendance {
+class MaDependance : IMaDependance {
 
 }
 ```
@@ -51,12 +49,12 @@ Pour rendre la classe accessible au système, il faut l’enregistrer dans la fo
 ```cs
 public void ConfigureServices(IServiceCollection services)
 {
-    // Enregistre l'utilisation de l'interface IMaDépendance
-    services.AddScoped<IMaDépendance>(serviceProvier => new MaDépendance());
-    // Enregistre l'utilisation de MaDépendance
-    services.AddScoped<MaDépendance>();
-    // Enregistre l'utilisation de MaDépendance comme singleton
-    services.AddSingleton<MaDépendance>();
+    // Enregistre l'utilisation de l'interface IMaDependance
+    services.AddScoped<IMaDependance>(serviceProvier => new Maeépendance());
+    // Enregistre l'utilisation de MaDependance
+    services.AddScoped<MaDependance>();
+    // Enregistre l'utilisation de MaDependance comme singleton
+    services.AddSingleton<MaDependance>();
 }
 ```
 
