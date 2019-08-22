@@ -64,7 +64,8 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 ## Middleware
-La configuration de l'application utilise le concept de Middleware (on y reviendra).
+Lorsqu’une requête est reçue par l’application, c’est un système de chaine de commandes qui décide par quoi et comment la requête sera traitée. L’ordre dans lequel les routes sont activées est important puisque c’est dans cet ordre que les pages seront traitées.
+
 Ce concept permet de bien définir et personnaliser comment les requêtes sont traitées. 
 Pour l'instant, sachez seulement que la fonction `IApplicationBuilder.Use` permet d'ajouter du code 
 et de traiter les requêtes. Cette fonction prend comme paramètre une fonction de deux paramètres:
@@ -152,11 +153,8 @@ On peut aussi créer un fichier de paramètres par environnement `appsettings.{e
 L’interface possède quelques fonctions utilitaires pour déterminer facilement quel est l’environnement utilisé ([Documentation officielle](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment?view=aspnetcore-2.1){:target="_blank"})
 
 
-## Traitement des requêtes
-
-Lorsqu’une requête est reçue par l’application, c’est un système de chaine de commandes qui décide par quoi et comment la requête sera traitée. L’ordre dans lequel les routes sont activées est important puisque c’est dans cet ordre que les pages seront traitées.
-
-### UseMvc()
+<!-- ## Traitement des requêtes -->
+<!-- ### UseMvc()
 
 Cette méthode active les pages Razor et MVC. Lorsqu’on utilise le système MVC, un routage par défaut existe pour les pages de type Razor. Pour l’utiliser, il suffit de créer un répertoire “Pages” dans le projet et les routes auront le nom des répertoires et des pages *.cshtml. Les pages Index.cshtml sont les pages par défaut pour l’accès à un répertoire.
 
@@ -169,4 +167,4 @@ public void Configure(IApplicationBuilder app)
     await context.Response.WriteAsync("Hello World!");
   });
 }
-```
+``` -->
