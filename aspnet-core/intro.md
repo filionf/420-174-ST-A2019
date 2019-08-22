@@ -13,49 +13,71 @@ ASP.NET utilise le Framework .NET, dont la création de la version 1.0 remonte �
 ![.NET Standard](images/net-standard.png)
 
 
-## Traitement des requêtes
+## Traitement d'une requête
+Chaque requête suit un chemin établi et plusieurs objet nous permettent d'interragir avec ces requêtes. 
+Lors du traitement d'une requête, il est très important de toujours garder en tête qu'un ***serveur web
+est concu pour exécuter plusieurs requêtes en même temps***. 
+C'est la une grande différence entre l'utilisation du serveur en mode développement et en mode production.
 
-Lorsqu’une requête est reçue par l’application, c’est un système de chaine de commandes qui décide par quoi et comment la requête sera traitée. L’ordre dans lequel les routes sont activées est important puisque c’est dans cet ordre que les pages seront traitées.
+### Contexte HTTP
+Le [contexte HTTP](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpcontext){:target="_blank"}
+est un élément central dans le traitement des requêtes, c'est lui qui donne des informations sur la requête en cours, l'authentification et la session. Il permet également de répondre à cette requête.
 
-### UseMvc()
+### Requête
+Une [requête HTTP](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httprequest){:target="_blank"}
+possède un objet la représentant en .NET. On l'utilise principalement en lecture et nous permet d'accéder à tous les éléments
+de la requête. C'est grâce à cet objet qu'on peut connaître le chemin d'accès, les entêtes, le corps, etc.
 
-  Cette méthode active les pages Razor et MVC. Lorsqu’on utilise le système MVC, un routage par défaut existe pour les pages de type Razor. Pour l’utiliser, il suffit de créer un répertoire “Pages” dans le projet et les routes auront le nom des répertoires et des pages *.cshtml. Les pages Index.cshtml sont les pages par défaut pour l’accès à un répertoire.
+### Réponse
+Comme toute requête s'attends à être répondue, la [réponse HTTP](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpresponse){:target="_blank"} existe
+C'est grâce à elle qu'on pourra faire affiché une page web ou retourner des données à l'utilisateur.
 
-  ```cs
-  public void Configure(IApplicationBuilder app)
-  {
-    app.UseMvc();
-    app.Run(async (context) =>
-    {
-        await context.Response.WriteAsync("Hello World!");
-    });
-  }
-  ```
-  
- 
 ## Dependency Injection
-Le système de dépendance d’ASP.NET intègre le patron d’injection de dépendances. Pour fonctionner, on créera habituellement l’interface du service (optionnelle) et son implémentation.
+Le système de dépendance d’ASP.NET intègre le patron d’injection de dépendances. Pour fonctionner, on créera habituellement l’interface du service (optionnel) et son implémentation.
 ```cs
-interface IMaDependance {
+interface IMaDependance { ... }
 
-}
-
-class MaDependance : IMaDependance {
-
-}
+class MaDependance : IMaDependance { ... }
 ```
 
-Pour rendre la classe accessible au système, il faut l’enregistrer dans la fonction ConfigureServices.
+Ensuite, pour rendre la classe accessible au système, il faut l’enregistrer dans la fonction ConfigureServices.
+Il existe 3 façons de configurer un service.
+- Transient (`AddTransient`):
+  Pour les services léger et sans état. Une nouvelle instance sera créé chaque fois qu'elle est demandée. La durée de vie de la classe en utilisant cette méthode est donc très courte (le temps de l'exécution de la fonction)
+- Scoped (`AddScoped`): 
+  Dans ce cas-ci, on créera une nouvelle instance pour chaque requête. 
+  Si on demande plusieurs fois le même service au fur et à mesure que la requête est exécuté, la même instance sera utilisée.
+- Singleton (`AddSingleton`):
+  Ici, c'est le patron Singleton qui est utilisé. La même instance est utilisée pour toutes les requêtes. 
+  Il faut faire très attention car si une requête brise l'état de la classe, c'est tout le site web qui peut être brisé.
+
 ```cs
 public void ConfigureServices(IServiceCollection services)
 {
-    // Enregistre l'utilisation de l'interface IMaDependance
-    services.AddScoped<IMaDependance>(serviceProvier => new Maeépendance());
-    // Enregistre l'utilisation de MaDependance
-    services.AddScoped<MaDependance>();
-    // Enregistre l'utilisation de MaDependance comme singleton
-    services.AddSingleton<MaDependance>();
+  // Enregistre l'utilisation de l'interface IMaDependance
+  services.AddScoped<IMaDependance>(serviceProvider => new MaDependance());
+  // Enregistre l'utilisation de MaDependance
+  services.AddScoped<MaDependance>();
+  // Enregistre l'utilisation de MaDependance comme singleton
+  services.AddSingleton<MaDependance>();
 }
+```
+
+## Middleware
+La configuration de l'application utilise le concept de Middleware (on y reviendra).
+Ce concept permet de bien définir et personnaliser comment les requêtes sont traitées. 
+Pour l'instant, sachez seulement que la fonction `IApplicationBuilder.Use` permet d'ajouter du code 
+et de traiter les requêtes. Cette fonction prend comme paramètre une fonction de deux paramètres:
+le contexte HTTP et la *fonction suivante*, c'est à dire la fonction à appeler si nous somme dans l'impossibilité de traiter la requête.
+```cs
+app.Use(async (httpContext, next) =>
+{
+  if (httpContext.Request.Path.StartsWithSegments("/")) {
+      await httpContext.Response.WriteAsync("Bonjour, vous êtes à la racine du site web!");
+  } else {
+      await next.Invoke();
+  }
+});
 ```
 
 ## Paramètres
@@ -129,3 +151,22 @@ On peut aussi créer un fichier de paramètres par environnement `appsettings.{e
 ###	IHostingEnvironment
 L’interface possède quelques fonctions utilitaires pour déterminer facilement quel est l’environnement utilisé ([Documentation officielle](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment?view=aspnetcore-2.1){:target="_blank"})
 
+
+## Traitement des requêtes
+
+Lorsqu’une requête est reçue par l’application, c’est un système de chaine de commandes qui décide par quoi et comment la requête sera traitée. L’ordre dans lequel les routes sont activées est important puisque c’est dans cet ordre que les pages seront traitées.
+
+### UseMvc()
+
+Cette méthode active les pages Razor et MVC. Lorsqu’on utilise le système MVC, un routage par défaut existe pour les pages de type Razor. Pour l’utiliser, il suffit de créer un répertoire “Pages” dans le projet et les routes auront le nom des répertoires et des pages *.cshtml. Les pages Index.cshtml sont les pages par défaut pour l’accès à un répertoire.
+
+```cs
+public void Configure(IApplicationBuilder app)
+{
+  app.UseMvc();
+  app.Run(async (context) =>
+  {
+    await context.Response.WriteAsync("Hello World!");
+  });
+}
+```
