@@ -8,3 +8,4 @@ description: Suppléments technologiques (A2019)
 3. [Stripe](stripe/)
 4. [ASP.NET Web Forms](aspnet-webforms/)
 
+[Exercices formatifs](exercices-formatifs)
