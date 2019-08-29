@@ -43,7 +43,7 @@ Plain Old CLR Object. Il s’agit d’un concept beaucoup utilisé dans Entity F
 -	Permet de créer un mappage entre les objets et la base de données.
 
 ## Utilisation d’EF Core (de base)
-En utilisant l’approche en 2.1, il est facile de créer une base de données en mémoire. Il sera vu plus tard comment se connecter à une vraie base de données.
+En utilisant l’approche en 2.2, il est facile de créer une base de données en mémoire. Il sera vu plus tard comment se connecter à une vraie base de données.
 
 ### Connexion
 ```cs
@@ -82,7 +82,7 @@ contexte.SaveChanges();
 ```
 
 ## Configuration des contextes
-En 2.1 le contexte se configure automatiquement pour être en mémoire, lorsqu’il n’est pas configuré, c’est à dire lorsque le constructeur par défaut est utilisé.
+En 2.2 le contexte se configure automatiquement pour être en mémoire, lorsqu’il n’est pas configuré, c’est à dire lorsque le constructeur par défaut est utilisé.
 
 On peut configurer le contexte qui sera utilisé par l’injection de dépendance au Startup.
 ```cs
@@ -107,95 +107,6 @@ Context.Database.EnsureCreated();
 Cette ligne créera la `db.mdf` et `db.ldf` dans le repertoire `C:\Users\{Username}`. On verra plus tard comment faire des migrations et mieux contrôler la création.
 
 [Pour plus d’information sur les Connection Strings](https://www.connectionstrings.com/sql-server/){:target="_blank"}
-
-## Migrations
-Jusqu’à maintenant, lorsque notre modèle change, on s’est contenté de supprimer la base de données et de la laisser se recréer par Entity Framework. Il y a plus intelligent ! 
-Il est possible de créer des scripts de migration afin de conserver les données et pour nous aider dans le processus, on devra utiliser les outils à la console.
-
-Lorsqu’on modifie les modèles de données, on 
--	Création d’un point de départ
--	Migration de modèle
--	Annulation d’une migration de modèle
--	Appliquer les migrations à l’exécution
--	Appliquer les migrations manuellement
-
-Il faut savoir que le processus de migration ne fonctionne pas bien avec le `EnsureCreated` parce que le `EnsureCreated` va créer la dernière version connue de la base de données. C’est toutefois une méthode de gestion de modèle plus robuste.
-
-[Plus d'infos sur les migrations](https://docs.microsoft.com/en-ca/ef/core/managing-schemas/migrations/){:target="_blank"}
-
-
-### Préparation du projet pour les migrations
-Si les outils dotnet ef ne sont pas installé, il est possible de les ajouter au projet.
-Il faut d’abord ajouter les outils au projet en exécutant la commande suivante
-```console
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-```
-Puis, dans le csproj, s’assurer que l’élément DotNetCliToolReference suivant est à l’intérieur d’une balise ItemGroup.
-```xml
-<ItemGroup>
-  <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.tools.DotNet" 
-                          Version= "2.0.0" >
-</ItemGroup>
-```
-
-
-### Création du point de départ.
-Lorsque notre modèle est prêt, on peut générer une première version du modèle 
-		
-dotnet ef migrations add [NomPointDeDépart]
-
-Cette opération ajoutera un répertoire « Migrations » à notre modèle. Il contiendra un script de migration, en C#, puis un “snapshot” du modèle.
-Le script de migration contient deux méthodes:
-- Up: Méthode de mise à jour vers ce modèle.
-- Down: Méthode pour revenir en arrière, au modèle précédent. Cette fonction annule les changements de la méthode Up.
-Le snapshot est mis à jour à chaque migration, il sert de point de départ pour créer le prochain point de migration.
-
-### Créer une migration
-La création d’une migration se fait de la même façon que le point de départ, il suffit de modifier notre modèle puis, quand tout est prêt, de lancer la commande suivante
-```console
-dotnet ef migrations add [NomMigration]
-```
-
-### Appliquer les changements
-
-On peut appliquer les changements de plusieurs façons.
-1. À l’exécution, en appellant la function Migrate de la base de données\
-   ```console
-   contexte.Database.Migrate();
-   ```
-2. Manuellement, en utilisant l’outil de migration d’Entity Framework
-   ```console
-   dotnet ef database update
-   ```
-3. Manuellement, en executant un script de migration.
-   ```console
-   dotnet ef migrations script
-   ```
-
-### Revenir en arrière
-Si nous avons omis une modification lors de la migration, il est aussi possible de revenir en arrière et de recréer la modification.
-1. On commence par revenir en arrière sur le modèle
-   ```console
-   dotnet ef database update [NomModèle]
-   dotnet ef migrations remove
-   ```
-1. On ajuste notre modèle de données en C#
-2. On génère notre nouveau script de migration
-3. On applique la migration
-
-### __EFMigrationsHistory
-Cette table sert à garder une trace des migrations appliquées. Elle est très simple et elle peut être pratique pour simuler qu’une migration a été appliquée si jamais on a gaffé...
-
-Il est aussi possible de changer le nom de cette table. On le fera surtout si on peut avoir plusieurs modèles de données dans la même base de données afin d’éviter les conflits.
-
-```cs
-options.UseSqlServer(connectionString,
-                     (sqlServerOptions) => 
-                         sqlServerOptions.MigrationsHistoryTable("_MigrationProduits")
-);
-```
-
-[Plus d'infos sur l'historique](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/history-table){:target="_blank"}
 
 ## Mappage
 
@@ -312,5 +223,95 @@ Pour des [relations](https://docs.microsoft.com/en-us/ef/core/modeling/relations
 Pour des relations obligatoires (ex. 1 – 1), il suffit de mettre la propriété `Required`. 
 Pour des relations où il y a plusieurs objets du type référencé, on n’a qu’a utiliser une propriété de type `ICollection`. 
 Les relations de type n – n ne sont pas supportés. Pour y arriver, il doit y avoir une table intermédiaire.
+
+
+## Migrations
+Jusqu’à maintenant, lorsque notre modèle change, on s’est contenté de supprimer la base de données et de la laisser se recréer par Entity Framework. Il y a plus intelligent ! 
+Il est possible de créer des scripts de migration afin de conserver les données et pour nous aider dans le processus, on devra utiliser les outils à la console.
+
+Lorsqu’on modifie les modèles de données, on 
+-	Création d’un point de départ
+-	Migration de modèle
+-	Annulation d’une migration de modèle
+-	Appliquer les migrations à l’exécution
+-	Appliquer les migrations manuellement
+
+Il faut savoir que le processus de migration ne fonctionne pas bien avec le `EnsureCreated` parce que le `EnsureCreated` va créer la dernière version connue de la base de données. C’est toutefois une méthode de gestion de modèle plus robuste.
+
+[Plus d'infos sur les migrations](https://docs.microsoft.com/en-ca/ef/core/managing-schemas/migrations/){:target="_blank"}
+
+
+### Préparation du projet pour les migrations
+Si les outils dotnet ef ne sont pas installé, il est possible de les ajouter au projet.
+Il faut d’abord ajouter les outils au projet en exécutant la commande suivante
+```console
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+```
+Puis, dans le csproj, s’assurer que l’élément DotNetCliToolReference suivant est à l’intérieur d’une balise ItemGroup.
+```xml
+<ItemGroup>
+  <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.tools.DotNet" 
+                          Version= "2.0.0" >
+</ItemGroup>
+```
+
+
+### Création du point de départ.
+Lorsque notre modèle est prêt, on peut générer une première version du modèle 
+		
+dotnet ef migrations add [NomPointDeDépart]
+
+Cette opération ajoutera un répertoire « Migrations » à notre modèle. Il contiendra un script de migration, en C#, puis un “snapshot” du modèle.
+Le script de migration contient deux méthodes:
+- Up: Méthode de mise à jour vers ce modèle.
+- Down: Méthode pour revenir en arrière, au modèle précédent. Cette fonction annule les changements de la méthode Up.
+Le snapshot est mis à jour à chaque migration, il sert de point de départ pour créer le prochain point de migration.
+
+### Créer une migration
+La création d’une migration se fait de la même façon que le point de départ, il suffit de modifier notre modèle puis, quand tout est prêt, de lancer la commande suivante
+```console
+dotnet ef migrations add [NomMigration]
+```
+
+### Appliquer les changements
+
+On peut appliquer les changements de plusieurs façons.
+1. À l’exécution, en appellant la function Migrate de la base de données\
+   ```console
+   contexte.Database.Migrate();
+   ```
+2. Manuellement, en utilisant l’outil de migration d’Entity Framework
+   ```console
+   dotnet ef database update
+   ```
+3. Manuellement, en executant un script de migration.
+   ```console
+   dotnet ef migrations script
+   ```
+
+### Revenir en arrière
+Si nous avons omis une modification lors de la migration, il est aussi possible de revenir en arrière et de recréer la modification.
+1. On commence par revenir en arrière sur le modèle
+   ```console
+   dotnet ef database update [NomModèle]
+   dotnet ef migrations remove
+   ```
+1. On ajuste notre modèle de données en C#
+2. On génère notre nouveau script de migration
+3. On applique la migration
+
+### __EFMigrationsHistory
+Cette table sert à garder une trace des migrations appliquées. Elle est très simple et elle peut être pratique pour simuler qu’une migration a été appliquée si jamais on a gaffé...
+
+Il est aussi possible de changer le nom de cette table. On le fera surtout si on peut avoir plusieurs modèles de données dans la même base de données afin d’éviter les conflits.
+
+```cs
+options.UseSqlServer(connectionString,
+                     (sqlServerOptions) => 
+                         sqlServerOptions.MigrationsHistoryTable("_MigrationProduits")
+);
+```
+
+[Plus d'infos sur l'historique](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/history-table){:target="_blank"}
 
 
