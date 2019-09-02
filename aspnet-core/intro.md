@@ -109,7 +109,7 @@ Ensuite, on peut accéder aux paramètres comme si c’était un dictionnaire. O
 @config["Messages:Saluer"]
 ```
 
-###	Configuration POCO
+###	Association à une classe
 On peut aussi associer la configuration ou une section à une classe de configuration pour ne pas avoir à utiliser les clés sous forme de chaîne de caractères.
 
 1. Se créer une classe.
@@ -127,7 +127,7 @@ On peut aussi associer la configuration ou une section à une classe de configur
    config.GetSection("messages").Bind(messages);
    ```
 
-### Auto-Configuration POCO
+### Auto-Configuration
 On peut pousser plus le concept un peu plus loin pour simplifier son utilisation: 
 ```cs
 public class Messages {
