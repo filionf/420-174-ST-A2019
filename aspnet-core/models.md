@@ -108,6 +108,34 @@ Cette ligne créera la `db.mdf` et `db.ldf` dans le repertoire `C:\Users\{Userna
 
 [Pour plus d’information sur les Connection Strings](https://www.connectionstrings.com/sql-server/){:target="_blank"}
 
+## Seed
+Que ce soit dans des scénarios de tests, ou simplement pour bien démarrer une application la première fois, il est possible de fournir des [données initiales](https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding){:target="_blank"} pour bien initializer la base de données. Cette fonctionnalité n'est disponible que depuis .NET Core 2.1.
+
+Pour ce faire, il faut surcharger la fonction `OnModelCreating` et s'assurer que la base de données soit créé soit en utilisant `context.Database.EnsureCreated()`, soit en utisant les migrations. 
+
+Lorsque des ids sont générés automatiquement, il faudra possiblement les générer manuellement (selon le type de bases de données - en mémoire, SQL, ...). Il sera alors préférable d'utiliser des ids négatifs afin d'éviter les conflits.
+
+```cs
+public class MonContexte : DbContext 
+{
+  ...
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    base.OnModelCreating(modelBuilder);
+    modelBuilder.Entity<MonEntite>().HasData(SeedDonnees());
+  }
+
+  private IEnumerable<MonEntite> SeedDonnees() 
+  {
+    ... 
+  }
+
+  ...
+}
+
+```
+
 ## Mappage
 
 ### Schéma
