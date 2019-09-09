@@ -254,7 +254,7 @@ Les relations de type n – n ne sont pas supportés. Pour y arriver, il doit y 
 
 
 ## Migrations
-Jusqu’à maintenant, lorsque notre modèle change, on s’est contenté de supprimer la base de données et de la laisser se recréer par Entity Framework. Il y a plus intelligent ! 
+Jusqu’à maintenant, lorsque notre modèle change, on s’est contenté de supprimer la base de données et de la laisser se recréer par Entity Framework. Il y a plus intelligent! 
 Il est possible de créer des scripts de migration afin de conserver les données et pour nous aider dans le processus, on devra utiliser les outils à la console.
 
 Lorsqu’on modifie les modèles de données, on 
@@ -321,7 +321,7 @@ On peut appliquer les changements de plusieurs façons.
 Si nous avons omis une modification lors de la migration, il est aussi possible de revenir en arrière et de recréer la modification.
 1. On commence par revenir en arrière sur le modèle
    ```console
-   dotnet ef database update [NomModèle]
+   dotnet ef database update [Nom de la migration]
    dotnet ef migrations remove
    ```
 1. On ajuste notre modèle de données en C#
