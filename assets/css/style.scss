@@ -1,0 +1,29 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+ol, ul {
+  margin-left: 1em;
+  > li {
+    padding-left: 0.5em;
+    > p:first-child { font-weight: inherit; }
+    > p { margin-bottom: 0.5em; }
+  }
+}
+
+ol ol > li {
+  list-style-type: lower-alpha;
+  margin-left: 1.5em;
+
+  ol > li {
+    list-style-type: lower-roman;
+    margin-left: 1.5em;
+  }
+}
+
+ul > li {
+  list-style: disc;
+}
+
+

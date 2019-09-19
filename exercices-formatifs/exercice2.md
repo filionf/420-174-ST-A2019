@@ -1,13 +1,9 @@
-<style>
-  ol ol > li {
-    list-style-type: lower-alpha;
-    margin-left: 1.5em;
-  }
-</style>
+---
+title: Exercice formatif 2
+description: Intégration d’un modèle de données
+---
 
-## Exercice formatif 2
-
-### Objectifs
+## Objectifs
 Pratiquer les concepts relatifs à l’utilisation dans une page web.
 
 Pour faire cet exercice, vous devez connaître les notions suivantes:
@@ -15,7 +11,7 @@ Pour faire cet exercice, vous devez connaître les notions suivantes:
 - DbContext, DbSet
 - LINQ
 
-### Travail à effectuer
+## Travail à effectuer
 1. Démarrez un projet ASP.NET Core Application (Razor)
 2. Ajoutez les classes nécessaires pour gérer une base de données simple de films.
     <ol>

@@ -1,13 +1,16 @@
-## Exercice formatif 1
+---
+title: Exercice formatif 1
+description: Configuration et injection de dépendances
+---
 
-### Objectifs
+## Objectifs
 
 - Utilisation des environnements de déploiement
 - Configurer différemment les différents environnements de déploiement
 - Utiliser l'injection de dépendance
 
 
-### Travail à effectuer
+## Travail à effectuer
 
 1. Démarrez un nouveau projet ASP.NET vide (Empty) en utilisant Visual Studio ou la commande `dotnet new web`
 2. À l'aide du `appsettings.json`, ajoutez les paramètres de configuration pour la clé publique et la clé privé.
@@ -17,18 +20,18 @@
 5. Créez un objet pour configurer accéder de façon typée à ces paramètres.
 
 
-### Résultat final
+## Résultat final
 Vous devriez être capable de voir ceci lorsque vous êtes en mode 
 
-#### À l'étape 1
+### À l'étape 1
 Vous devriez avoir ceci comme résultat
 ![](images/exercice1-root.png)
 
-#### À l'étape 3
+### À l'étape 3
 Vous devriez pouvoir obtenir ceci lors que vous exécutez l'application en mode "Développement"
 ![](images/exercice1-dev.png)
 
-#### À l'étape 4
+### À l'étape 4
 Vous devriez pouvoir obtenir ceci lorsque vous exécutez l'application en mode "Production" sans avoir rien changé aux résultats précédents
 ![](images/exercice1-prod.png)
 
