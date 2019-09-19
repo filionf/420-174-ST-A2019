@@ -19,6 +19,6 @@ Pour faire cet exercice, vous devez connaître les notions suivantes:
       <li>Un DbSet pour les films.</li>
       <li>Un film doit contenir un id généré automatiquement, un nom, une année d’affiche et un synopsis.</li>
     </ol>
-3. Créer les pages pour nécessaires pour gérer les films, donc une page pour la liste de films, une autre pour créer, voir les détails, modifier et supprimer un film. Je vous recommende fortement d'utiliser le scaffolding pour ce faire.
+3. Créer les pages pour nécessaires pour gérer les films, donc une page pour la liste de films, une autre pour créer, voir les détails, modifier et supprimer un film. Je vous recommande fortement d'utiliser le scaffolding pour ce faire.
 4. Affichez les films par année d'affiche, les plus récents en premier.
 
