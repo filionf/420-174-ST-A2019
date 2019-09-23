@@ -3,7 +3,7 @@ title: Authentification
 ---
 
 ## Authentification In-App
-La première façon de gérer l'authentification est d'utiliser l'[authentification "in-app"](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity){:target="_blank"}. C'est à dire que l'application gérera elle-même les usagers et mots de passes qui ont accès à l'application.
+La première façon de gérer l'authentification est d'utiliser l'[authentification "in-app"](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity){:target="_blank"}. C'est-à-dire que l'application gérera elle-même les usagers et mots de passe qui ont accès à l'application.
 
 ### Configuration des services
 Pour utiliser l'authentification, il faut la configurer dans le `ConfigureServices`. Évidemment, on aura besoin d'une base de données pour conserver ces informations, d'où le code suivant
@@ -18,22 +18,31 @@ services.AddDefaultIdentity<IdentityUser>()
 Le `ApplicationDbContext` qui vient avec le modèle hérite de `DbContext`. Ça nous donne donc un modèle Entity Framework comme ce qu'on a vu jusqu'à présent et on peut personnaliser notre usager. Pour ce faire, il faut suivre quelques étapes.
 
 1. Hériter `IdentityUser`
-Le type qui représentera l'usager doit utiliser hériter de `IdentityUser`, c'est sur cet usager que l'on peut ajouter les propriétés nécessaires à notre application.
-2. Modifier `AddDefaultIdentity`
-Dans `ConfigureServices`, la ligne `AddDefaultIdentity` est générique, ce paramètre est le type de notre usager.
-3. Modifier `ApplicationDbContext`
-Le `ApplicationDbContext` prend également quelques paramètres génériques, le premier étant le type de l'usager.
-4. Modifier les pages
-Certaines pages ont comme modèle le `IdentityUser`, il faut les modifier pour qu'elles utilisent le nouveau type que nous avons créé.
-5. Appliquer les migrations nécessaires
-Comme ce que nous avons vu précédemment, il ne faut pas oublier de faire nos migrations de modèle.
 
-## Supporter différents types d'utilisateur (rôles)
+   Le type qui représentera l'usager doit utiliser hériter de `IdentityUser`, c'est sur cet usager que l'on peut ajouter les propriétés nécessaires à notre application.
+
+2. Modifier `AddDefaultIdentity`
+   
+   Dans `ConfigureServices`, la ligne `AddDefaultIdentity` est générique, ce paramètre est le type de notre usager.
+
+3. Modifier `ApplicationDbContext`
+   
+   Le `ApplicationDbContext` prend également quelques paramètres génériques, le premier étant le type de l'usager.
+
+4. Modifier les pages
+   
+   Certaines pages ont comme modèle le `IdentityUser`, il faut les modifier pour qu'elles utilisent le nouveau type que nous avons créé.
+
+5. Appliquer les migrations nécessaires
+   
+   Comme ce que nous avons vu précédemment, il ne faut pas oublier de faire nos migrations de modèle.
+
+## Supporter différents types d'utilisateurs (rôles)
 Supposons que vous vouliez avoir différents accès selon les utilisateurs. Identity Core supporte également cette fonctionnalité, mais il y a quelques étapes à faire pour l'activer.
 En utilisant l'authentification In-App, les rôles sont conservés dans la table `AspNetRoles` et les rôles qu'un usager possède sont conservés dans la table `AspNetUserRoles`. La classe de base représentant les rôles est `IdentityRole` et fonctionne de façon similaire à `IdentityUser`.
 La gestion des rôles est faite à l'aide de l'objet `RoleManager` et il s'agit d'une classe générique. Il peut donc être injecté ainsi si les rôles n'ont pas été personnalisés: `RoleManager<IdentityRole>`.
 
-### Vérifier l'existance d'un rôle
+### Vérifier l'existence d'un rôle
 ```cs
 await roleManager.RoleExistsAsync("role")
 ```
@@ -109,5 +118,5 @@ Suivez les instructions : [https://apps.dev.microsoft.com/](https://apps.dev.mic
 Générez un mot de passe d'application, puis ajustez votre `appsettings.json`
 
 ### Ajouter une plateforme (web)
-La plateforme demande un URL de retour. Cet URL sert à renvoyer le code d'accès. Dans le cas de l'authentification Microsoft, la valeur par défaut est `/signin-microsoft`. Puisque nous sommes en mode développement, il suffit d'entrer notre URL de développement (qui doit être HTTPS) mais si ne faut pas oublier d'ajouter l'URL de production au déploiement.
+La plateforme demande une URL de retour. Cette URL sert à renvoyer le code d'accès. Dans le cas de l'authentification Microsoft, la valeur par défaut est `/signin-microsoft`. Puisque nous sommes en mode développement, il suffit d'entrer notre URL de développement (qui doit être HTTPS) mais si ne faut pas oublier d'ajouter l'URL de production au déploiement.
 

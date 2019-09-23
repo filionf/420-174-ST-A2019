@@ -33,14 +33,14 @@ public class ContexteProduits
 ```
 
 ### Microsoft.EntityFrameworkCore.DbSet
-Lorsque déclaré à l’intérieur d’un DbContext, les propriétés de type DbSet représentent un jeu de données, une table. Les informations relatives à la création de cette table sont définies par le type `T` associé. 
+Lorsque déclarées à l’intérieur d’un DbContext, les propriétés de type DbSet représentent un jeu de données, une table. Les informations relatives à la création de cette table sont définies par le type `T` associé. 
 
 ### POCO
-Plain Old CLR Object. Il s’agit d’un concept beaucoup utilisé dans Entity Framework qui veut dire qu’on travaille avec de simples classes .NET. Lorsqu’on travaille avec ces classes, on devrait donc les manipuler de la même façon, qu’elles appartiennent à une base de données ou non. Il y a beaucoup de magie derrière cette approche, mais elle a quelques avantages non-négligeable:
+Plain Old CLR Object. Il s’agit d’un concept très utilisé dans Entity Framework qui veut dire qu’on travaille avec de simples classes .NET. Lorsqu’on travaille avec ces classes, on devrait donc les manipuler de la même façon, qu’elles appartiennent à une base de données ou non. Il y a beaucoup de magie derrière cette approche, mais elle a quelques avantages non négligeables:
 -	Simplicité
 -	Meilleure testabilité
 -	Couplage faible
--	Permet de créer un mappage entre les objets et la base de données.
+-	Permets de créer un mappage entre les objets et la base de données.
 
 ## Utilisation d’EF Core (de base)
 En utilisant l’approche en 2.2, il est facile de créer une base de données en mémoire. Il sera vu plus tard comment se connecter à une vraie base de données.
@@ -82,7 +82,7 @@ contexte.SaveChanges();
 ```
 
 ## Configuration des contextes
-En 2.2 le contexte se configure automatiquement pour être en mémoire, lorsqu’il n’est pas configuré, c’est à dire lorsque le constructeur par défaut est utilisé.
+En 2.2 le contexte se configure automatiquement pour être en mémoire lorsqu’il n’est pas configuré, c’est-à-dire lorsque le constructeur par défaut est utilisé.
 
 On peut configurer le contexte qui sera utilisé par l’injection de dépendance au Startup.
 ```cs
@@ -93,25 +93,25 @@ services.AddDbContext<Models.ContexteProduits>(options =>
 ```
 
 Cette configuration fait référence à l’item “ConnectionStrings” dans appsettings.json.
-Voici un example de configuration pour EF Core, qui réfère à une base de données de développement:
+Voici un exemple de configuration pour EF Core, qui réfère à une base de données de développement:
 ```json
   "ConnectionStrings": {
     "Default": "Server=(localdb)\\mssqllocaldb;Database=Produits;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 ```
 
-On pourra ainsi utiliser différente base de données lorsqu’on développe l’application et lorsqu’on la déploie. Avant de l’utiliser, il faut s’assurer qu’elle a été bien été créée: 
+On pourra ainsi utiliser différentes bases de données lorsqu’on développe l’application et lorsqu’on la déploie. Avant de l’utiliser, il faut s’assurer qu’elle a été bien été créée: 
 ```cs
 Context.Database.EnsureCreated();
 ```
-Cette ligne créera la `db.mdf` et `db.ldf` dans le repertoire `C:\Users\{Username}`. On verra plus tard comment faire des migrations et mieux contrôler la création.
+Cette ligne créera la `db.mdf` et `db.ldf` dans le répertoire `C:\Users\{Username}`. On verra plus tard comment faire des migrations et mieux contrôler la création.
 
 [Pour plus d’information sur les Connection Strings](https://www.connectionstrings.com/sql-server/){:target="_blank"}
 
 ## Seed
-Que ce soit dans des scénarios de tests, ou simplement pour bien démarrer une application la première fois, il est possible de fournir des [données initiales](https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding){:target="_blank"} pour bien initializer la base de données. Cette fonctionnalité n'est disponible que depuis .NET Core 2.1.
+Que ce soit dans des scénarios de tests, ou simplement pour bien démarrer une application la première fois, il est possible de fournir des [données initiales](https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding){:target="_blank"} pour bien initialiser la base de données. Cette fonctionnalité n'est disponible que depuis .NET Core 2.1.
 
-Pour ce faire, il faut surcharger la fonction `OnModelCreating` et s'assurer que la base de données soit créé soit en utilisant `context.Database.EnsureCreated()`, soit en utisant les migrations. 
+Pour ce faire, il faut surcharger la fonction `OnModelCreating` et s'assurer que la base de données soit créé soit en utilisant `context.Database.EnsureCreated()`, soit en utilisant les migrations. 
 
 Lorsque des ids sont générés automatiquement, il faudra possiblement les générer manuellement (selon le type de bases de données - en mémoire, SQL, ...). Il sera alors préférable d'utiliser des ids négatifs afin d'éviter les conflits.
 
@@ -139,7 +139,7 @@ public class MonContexte : DbContext
 ## Mappage
 
 ### Schéma
-Certains fournisseurs de base de données, comme SQL Server, supporte les schémas. Un schéma peut être comparé à un namespace en C#. Il sera utilisé pour regrouper de façon logique vos tables et données. Par défaut, avec SQL Serveur, les objets sont créés dans le schéma dbo. Il est toutefois possible de changer le schéma par défaut dans la méthode OnModelCreating du contexte.
+Certains fournisseurs de base de données, comme SQL Server, supportent les schémas. Un schéma peut être comparé à un namespace en C#. Il sera utilisé pour regrouper de façon logique vos tables et données. Par défaut, avec SQL Serveur, les objets sont créés dans le schéma dbo. Il est toutefois possible de changer le schéma par défaut dans la méthode OnModelCreating du contexte.
 
 ```cs
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -162,7 +162,7 @@ public class Produit { ... }
 ```
 
 #### Column
-De façon similaire à l’annotation de table, l’annotation de [`colonne`](https://docs.microsoft.com/en-us/ef/core/modeling/relational/columns){:target="_blank"} permet de changer le nom de notre colonne. Elle permet également de changer la position à laquelle la colonne sera créer dans la table (Order) ou le type de données généré si jamais celui par défaut ne convient pas.
+De façon similaire à l’annotation de table, l’annotation de [`colonne`](https://docs.microsoft.com/en-us/ef/core/modeling/relational/columns){:target="_blank"} permet de changer le nom de notre colonne. Elle permet également de changer la position à laquelle la colonne sera créée dans la table (Order) ou le type de données généré si jamais celui par défaut ne convient pas.
 ```cs
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -171,7 +171,7 @@ public string Nom { get; set; }
 ```
 
 #### NotMapped
-Parfois, il y a des classes ou propriétés qui seront associées à nos entités, mais nous ne désirons pas que ces valeurs se retrouvent dans la base de données, elles ne font parties que de notre modèle d’application. C’est à cela que sert l’attribut `NotMapped`, à ignorer ces [classes](https://docs.microsoft.com/en-us/ef/core/modeling/included-types){:target="_blank"} ou [propriétés](https://docs.microsoft.com/en-us/ef/core/modeling/included-properties){:target="_blank"}. 
+Parfois, il y a des classes ou propriétés qui seront associées à nos entités, mais nous ne désirons pas que ces valeurs se retrouvent dans la base de données, elles ne font partie que de notre modèle d’application. C’est à cela que sert l’attribut `NotMapped`, à ignorer ces [classes](https://docs.microsoft.com/en-us/ef/core/modeling/included-types){:target="_blank"} ou [propriétés](https://docs.microsoft.com/en-us/ef/core/modeling/included-properties){:target="_blank"}. 
 
 #### Key
 Pour être créée, chaque table doit posséder une clé primaire. Elle peut se faire à l’aide de cette annotation. Pour une clé à plusieurs colonnes, il faut utiliser le Fluent API. Une clé multiple peut également avoir plusieurs colonnes. Dans ce cas, il suffit de mettre l’attribut sur chacune des colonnes. Les propriétés [`Key`](https://docs.microsoft.com/en-us/ef/core/modeling/keys){:target="_blank"} sont automatiquement `Required`.
@@ -184,7 +184,7 @@ public string Nom { get; set; }
 ```
 
 
-#### Valeurs auto-générées
+#### Valeurs autogénérées
 Parfois, on ne veut pas se soucier de la valeur de la clé et ne désire seulement qu’une valeur soit [générée automatiquement](https://docs.microsoft.com/en-us/ef/core/modeling/generated-properties){:target="_blank"}.
 ```cs
 [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -203,10 +203,10 @@ public string Nom { get; set; }
 
 
 ### Fluent API
-Le Fluent API est une façon un peu plus complexe à utiliser que les annotations, mais beaucoup plus flexible. La bonne nouvelle est que les deux techniques peuvent être combinés. Chaque annotation ci-dessus possède un équivalent en mode Fluent (non-montré). Le code relativement à cet API
+Le Fluent API est une façon un peu plus complexe à utiliser que les annotations, mais beaucoup plus flexible. La bonne nouvelle est que les deux techniques peuvent être combinées. Chaque annotation ci-dessus possède un équivalent en mode Fluent (non montré). Le code relativement à cet API
 
 #### Clés multiples
-On a vu qu’on pouvait utiliser l’attribut `Key` pour définir une clé. Toutefois, si une [clé multiple](https://docs.microsoft.com/en-us/ef/core/modeling/keys){:target="_blank"} doit être utilisé, il faut utiliser le Fluent API. 
+On a vu qu’on pouvait utiliser l’attribut `Key` pour définir une clé. Toutefois, si une [clé multiple](https://docs.microsoft.com/en-us/ef/core/modeling/keys){:target="_blank"} doit être utilisée, il faut utiliser le Fluent API. 
 ```cs
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -239,7 +239,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 
 ### Héritage
-EF supporte l’[héritage](https://docs.microsoft.com/en-us/ef/core/modeling/inheritance){:target="_blank"}. Les deux types peuvent être inclus dans un DbSet du contexte, ou être configure avec le Fluent API
+EF supporte l’[héritage](https://docs.microsoft.com/en-us/ef/core/modeling/inheritance){:target="_blank"}. Les deux types peuvent être inclus dans un DbSet du contexte, ou être configurés avec le Fluent API
 ```cs
 modelBuilder.Entity<ProduitComestible>().HasBaseType<Produit>();
 modelBuilder.Entity<ProduitEnPlastique>().HasBaseType<Produit>();
@@ -249,8 +249,8 @@ modelBuilder.Entity<ProduitEnPlastique>().HasBaseType<Produit>();
 ### Relations (Foreign Key)
 Pour des [relations](https://docs.microsoft.com/en-us/ef/core/modeling/relationships){:target="_blank"} simples, elles seront créées automatiquement en ajoutant les propriétés aux objets concernés. EF créera automatiquement les champs nécessaires à la relation.
 Pour des relations obligatoires (ex. 1 – 1), il suffit de mettre la propriété `Required`. 
-Pour des relations où il y a plusieurs objets du type référencé, on n’a qu’a utiliser une propriété de type `ICollection`. 
-Les relations de type n – n ne sont pas supportés. Pour y arriver, il doit y avoir une table intermédiaire.
+Pour des relations où il y a plusieurs objets du type référencé, on n’a qu’à utiliser une propriété de type `ICollection`. 
+Les relations de type n – n ne sont pas supportées. Pour y arriver, il doit y avoir une table intermédiaire.
 
 
 ## Migrations
@@ -304,7 +304,7 @@ dotnet ef migrations add [NomMigration]
 ### Appliquer les changements
 
 On peut appliquer les changements de plusieurs façons.
-1. À l’exécution, en appellant la function Migrate de la base de données\
+1. À l’exécution, en appellant la fonction Migrate de la base de données\
    ```console
    contexte.Database.Migrate();
    ```
@@ -312,7 +312,7 @@ On peut appliquer les changements de plusieurs façons.
    ```console
    dotnet ef database update
    ```
-3. Manuellement, en executant un script de migration.
+3. Manuellement, en exécutant un script de migration.
    ```console
    dotnet ef migrations script
    ```

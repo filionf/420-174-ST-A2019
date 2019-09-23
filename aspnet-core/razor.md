@@ -3,7 +3,7 @@ title: Razor
 ---
 
 ## Syntaxe Razor de base
-Nous utiliserons la syntaxe [Razor](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor){:target="_blank"} avec des pages `*.cshtml`. De base, une page Razor qui ne contient que du HTML sera affiché comme si c'était une page HTML. C'est l'idée de base, on veut améliorer le HTML en utilisant du code serveur!
+Nous utiliserons la syntaxe [Razor](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor){:target="_blank"} avec des pages `*.cshtml`. De base, une page Razor qui ne contient que du HTML sera affichée comme si c'était une page HTML. C'est l'idée de base, on veut améliorer le HTML en utilisant du code serveur!
 
 ### Expression C#
 C'est le symbole `@` qui sert à ajouter des instructions serveur. Si le symbole @ doit être inséré dans le HTML, on n'a qu'à le dupliquer (`@@`). Lorsqu'une expression est évaluée, sa valeur est affichée dans la page web après avoir été encodée à l'aide du `HtmlEncode`.
@@ -27,7 +27,7 @@ Si les instructions ne font pas exactement ce que nous désirons, nous pouvons t
 ```
 
 ### HTML à l'intérieur d'un bloc
-Avec la syntaxe Razor, il devient extrêtement facile d'insérer du HTML, même si nous sommes dans un bloc d'instructions. Il suffit d'y insérer l'élément HTML et la transition du langage C# vers HTML se fait automatiquement. Si tout ce qu'on veut est insérer du texte, sans balise, à ce moment, on peut utiliser le pseudo-élément text.
+Avec la syntaxe Razor, il devient extrêmement facile d'insérer du HTML, même si nous sommes dans un bloc d'instructions. Il suffit d'y insérer l'élément HTML et la transition du langage C# vers HTML se fait automatiquement. Si tout ce que l'on veut est d'insérer du texte, sans balise, à ce moment, on peut utiliser le pseudo-élément text.
 ```
 @foreach (var index in Enumerable.Range(0, 10))
 {
@@ -37,17 +37,17 @@ Avec la syntaxe Razor, il devient extrêtement facile d'insérer du HTML, même 
 
 ## Directives
 ### @using
-Similaire au using en C#. Permet d'utiliser des classes et namespaces sans les référencer explicitement.	
+Similaire au using en C#. Permets d'utiliser des classes et namespaces sans les référencer explicitement.	
 ### @model
 Avec la syntaxe Razor, nous avons accès à un modèle. Dans le cas des pages Razor, ce modèle est habituellement du type de base `PageModel`.
 ### @inject
-Permet d'injecter un service dans la page et de l'utiliser.
+Permets d'injecter un service dans la page et de l'utiliser.
 
 ## Pages Razor
-Les [pages Razor](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/){:target="_blank"} sont apparue après les pages MVC. Elles sont plus simples à utiliser, parfaites pour des pages simples.
+Les [pages Razor](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/){:target="_blank"} sont apparues après les pages MVC. Elles sont plus simples à utiliser, parfaites pour des pages simples.
 
 ### Répertoire "Pages"
-En ajoutant au projet le routage MVC (voir intro), les pages Razor dans le répertoire `Pages` sont automatiquement trouvées. La page par défaut est la page `Index.cshtml` et les répertoires sont automatiquement convertis en partie de chemin d'accès. Aucun besoin d'ajouter l'extension du fichier pour accéder à la page, il suffit d'entrer le nom. Par exemple, si on a une page test.cshtml dans le dossier `Pages`, on pourra y accéder avec cet URL: `http://site/test`
+En ajoutant au projet le routage MVC (voir intro), les pages Razor dans le répertoire `Pages` sont automatiquement trouvées. La page par défaut est la page `Index.cshtml` et les répertoires sont automatiquement convertis en partie de chemin d'accès. Aucun besoin d'ajouter l'extension du fichier pour accéder à la page, il suffit d'entrer le nom. Par exemple, si on a une page test.cshtml dans le dossier `Pages`, on pourra y accéder avec cette URL: `http://site/test`
 
 ### Page simple
 Exemple de contenu d'un fichier `*.cshtml`.
@@ -65,14 +65,14 @@ Exemple de contenu d'un fichier `*.cshtml`.
 <h2>@ViewData["Title"]</h2>
 <h3>@Model.Message</h3>
 
-<p>Contenue de la page ici</p>
+<p>Contenu de la page ici</p>
 ```
 
 ### Code-Behind
 Chaque page Razor vient habituellement avec un fichier `cs`. Ce fichier déclare une classe qui hérite de PageModel et permet d'y référencer dans le `cshtml`. C'est l'approche recommandée pour ne pas surcharger le fichier `cshtml`.
 
 ### _ViewImports.cshtml
-Le contenu de ce fichier est automatiquement chargé pour la page. Ce fichier sert à nous éviter de répéter les mêmes lignes pour toutes les pages. La syntaxe est Razor, mais ne permets que d'y insérer certaines directives. Il peut y avoir un fichier `_ViewImports` par répertoire, ils seronts appliqués en suivant la hiérarchie.
+Le contenu de ce fichier est automatiquement chargé pour la page. Ce fichier sert à nous éviter de répéter les mêmes lignes pour toutes les pages. La syntaxe est Razor, mais ne permet que d'y insérer certaines directives. Il peut y avoir un fichier `_ViewImports` par répertoire, ils seront appliqués en suivant la hiérarchie.
 
 ### _ViewStart.cshtml
 À la différence de `_ViewImports`, ce fichier sert à insérer du code au début de chaque page. Un bon exemple d'utilisation est d'assigner le Layout à chaque page.
@@ -84,7 +84,7 @@ Le contenu de ce fichier est automatiquement chargé pour la page. Ce fichier se
 ```
 
 ### Layout
-Le [layout](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout){:target="_blank"} est l'équivalement du MasterPage en WebForms, il définit la structure de la page.
+Le [layout](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/layout){:target="_blank"} est l'équivalent du MasterPage en WebForms, il définit la structure de la page.
 
 ### <environment>
 Permet de contrôler ce qui apparait dans la page selon l'environnement. Pratique pour avoir des fichier “Debug” en mode développement
@@ -164,7 +164,7 @@ Les données des formulaires qui sont transigées par les requêtes `GET` / `POS
 public Utilisateur Utilisateur { get; set; }
 ```
 ### Sauvegarde
-Les données obtenues via le `BindProperty` nous donnent un objet .NET, une instance de classe. Cette instance n'est toutefois pas associée à la base de données, du moins, le Framework n'en est pas conscient. Pour l'aider, avant de sauvegarder notre entité, nous devront l'attacher à son `DbSet`. Ainsi, Entity Framework comprendra que l'instance est en fait une entité et qu'il doit l'espionner pour appliquer les modifications lors du `SaveChanges`. Puisque notre objet arrive d'un `POST`, il est possible qu'aucune modification ne soit à faire sur l'objet. On peut généralement assumer qu'il a été modifié par l'utilisateur. On peut donc indiquer à Entity Framework que c'est le cas afin qu'il sache qu'il doit la sauvegarder.
+Les données obtenues via le `BindProperty` nous donnent un objet .NET, une instance de classe. Cette instance n'est toutefois pas associée à la base de données, du moins, le Framework n'en est pas conscient. Pour l'aider, avant de sauvegarder notre entité, nous devrons l'attacher à son `DbSet`. Ainsi, Entity Framework comprendra que l'instance est en fait une entité et qu'il doit l'espionner pour appliquer les modifications lors du `SaveChanges`. Puisque notre objet arrive d'un `POST`, il est possible qu'aucune modification ne soit à faire sur l'objet. On peut généralement assumer qu'il a été modifié par l'utilisateur. On peut donc indiquer à Entity Framework que c'est le cas afin qu'il sache qu'il doit la sauvegarder.
 ```cs
 EntityEntry entite = Contexte.Attach(Utilisateur);
 entite.State = EntityState.Modified;
@@ -177,10 +177,10 @@ La page contient également une propriété IsValid. Avant de faire des modifica
 ```
 
 ## Helpers
-ASP.NET fourni quelques outils pour simplifier la gestion entre le modèle et le HTML. Ils vont permettre de générer du HTML et d'appliquer un certain lien entre nos éléments HTML et notre modèle.
+ASP.NET fournit quelques outils pour simplifier la gestion entre le modèle et le HTML. Ils vont permettre de générer du HTML et d'appliquer un certain lien entre nos éléments HTML et notre modèle.
 
 ### HTML Helpers
-Le `HtmlHelper` peut être utilisé à l'aide de l'instruction `@Html`. L'object `HtmlHelper` implémente l'interface [`IHtmlHelper`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper){:target="_blank"}. Mais il existe aussi quelques classes d'extensions.
+Le `HtmlHelper` peut être utilisé à l'aide de l'instruction `@Html`. L'objet `HtmlHelper` implémente l'interface [`IHtmlHelper`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper){:target="_blank"}. Mais il existe aussi quelques classes d'extensions.
 Par exemple, pour créer un label sur la propriété `Message`:
 ```html
 @Html.LabelFor(_ => _.Message)

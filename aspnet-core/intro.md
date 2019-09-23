@@ -8,15 +8,15 @@ ASP.NET utilise le Framework .NET, dont la création de la version 1.0 remonte �
 
 .NET Core est une nouvelle implémentation du Framework .NET dont l’objectif et de créer des applications multiplateformes. C’était aussi l’idée originale du .NET Framework, mais elle ne s’est jamais vraiment popularisée. 
 
-.NET Standard est en ensemble d’API qui doit être implémenté par chaque implémentation de .NET. En ciblant .NET Standard, on s’assure que notre librairie pourra être utilisé par chacune des implémentations.
+.NET Standard est en ensemble d’API qui doit être implémenté par chaque implémentation de .NET. En ciblant .NET Standard, on s’assure que notre librairie pourra être utilisée par chacune des implémentations.
 
 ![.NET Standard](images/net-standard.png)
 
 
 ## Traitement d'une requête
-Chaque requête suit un chemin établi et plusieurs objet nous permettent d'interragir avec ces requêtes. 
+Chaque requête suit un chemin établi et plusieurs objets nous permettent d'interagir avec ces requêtes. 
 Lors du traitement d'une requête, il est très important de toujours garder en tête qu'un ***serveur web
-est concu pour exécuter plusieurs requêtes en même temps***. 
+est conçu pour exécuter plusieurs requêtes en même temps***. 
 C'est la une grande différence entre l'utilisation du serveur en mode développement et en mode production.
 
 ### Contexte HTTP
@@ -29,7 +29,7 @@ possède un objet la représentant en .NET. On l'utilise principalement en lectu
 de la requête. C'est grâce à cet objet qu'on peut connaître le chemin d'accès, les entêtes, le corps, etc.
 
 ### Réponse
-Comme toute requête s'attends à être répondue, la [réponse HTTP](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpresponse){:target="_blank"} existe
+Comme toute requête s'attend à être répondue, la [réponse HTTP](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.http.httpresponse){:target="_blank"} existe!
 C'est grâce à elle qu'on pourra faire affiché une page web ou retourner des données à l'utilisateur.
 
 ## Dependency Injection
@@ -43,11 +43,14 @@ class MaDependance : IMaDependance { ... }
 Ensuite, pour rendre la classe accessible au système, il faut l’enregistrer dans la fonction ConfigureServices.
 Il existe 3 façons de configurer un service.
 - Transient (`AddTransient`):
-  Pour les services léger et sans état. Une nouvelle instance sera créé chaque fois qu'elle est demandée. La durée de vie de la classe en utilisant cette méthode est donc très courte (le temps de l'exécution de la fonction)
-- Scoped (`AddScoped`): 
+
+  Pour les services légers et sans état. Une nouvelle instance sera créée chaque fois qu'elle est demandée. La durée de vie de la classe en utilisant cette méthode est donc très courte (le temps de l'exécution de la fonction).
+- Scoped (`AddScoped`):
+
   Dans ce cas-ci, on créera une nouvelle instance pour chaque requête. 
   Si on demande plusieurs fois le même service au fur et à mesure que la requête est exécuté, la même instance sera utilisée.
 - Singleton (`AddSingleton`):
+  
   Ici, c'est le patron Singleton qui est utilisé. La même instance est utilisée pour toutes les requêtes. 
   Il faut faire très attention car si une requête brise l'état de la classe, c'est tout le site web qui peut être brisé.
 
@@ -69,7 +72,7 @@ Lorsqu’une requête est reçue par l’application, c’est un système de cha
 Ce concept permet de bien définir et personnaliser comment les requêtes sont traitées. 
 Pour l'instant, sachez seulement que la fonction `IApplicationBuilder.Use` permet d'ajouter du code 
 et de traiter les requêtes. Cette fonction prend comme paramètre une fonction de deux paramètres:
-le contexte HTTP et la *fonction suivante*, c'est à dire la fonction à appeler si nous somme dans l'impossibilité de traiter la requête.
+le contexte HTTP et la *fonction suivante*, c'est-à-dire la fonction à appeler si nous sommes dans l'impossibilité de traiter la requête.
 ```cs
 app.Use(async (httpContext, next) =>
 {
@@ -110,7 +113,7 @@ Ensuite, on peut accéder aux paramètres comme si c’était un dictionnaire. O
 ```
 
 ###	Association à une classe
-On peut aussi associer la configuration ou une section à une classe de configuration pour ne pas avoir à utiliser les clés sous forme de chaîne de caractères.
+On peut aussi associer la configuration ou une section à une classe de configuration pour ne pas avoir à utiliser les clés sous forme de chaine de caractères.
 
 1. Se créer une classe.
    ```cs

@@ -25,7 +25,7 @@ En utilisant le `app.Use`, on reçoit deux paramètres:
 - Le contexte HTTP
 - La prochaine fonction à exécuter.
 
-On peut utiliser le contexte HTTP pour analyser la requête ou la réponse. La méthode next n’a pas besoin d’être appelé absolument. Si on l’appelle, elle cherchera la prochaine utilisation du `app.Use` ou `app.Run` et l’exécutera. Si notre middleware retourne une réponse, il ne devrait pas exécuter les prochaines étapes, on ne devrait pas appeler la méthode next. Sinon, c’est qu’on laisse le soin au prochain middleware de traiter la requête.
+On peut utiliser le contexte HTTP pour analyser la requête ou la réponse. La méthode next n’a pas besoin d’être appelée absolument. Si on l’appelle, elle cherchera la prochaine utilisation du `app.Use` ou `app.Run` et l’exécutera. Si notre middleware retourne une réponse, il ne devrait pas exécuter les prochaines étapes, on ne devrait pas appeler la méthode next. Sinon, c’est qu’on laisse le soin au prochain middleware de traiter la requête.
 
 ## Middleware conditionnel
 Il est possible de changer l’exécution des middlewares selon les requêtes.

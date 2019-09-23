@@ -46,7 +46,7 @@ Par défaut, le contrôleur est `Home`, l’action est `Index` et le `id` est op
 Si les règles de routes par défaut ne sont pas exactement celles que nous désirons, nous pouvons en créer de nouvelles, ou utiliser des attributs sur les contrôleurs ou les actions.
 
 ### Attribut Route
-L’attribut Route peut être utiliser sur les contrôleurs et/ou les actions. S’il est utilisé sur les deux, ils seront combinés ensemble.
+L’attribut Route peut être utilisée sur les contrôleurs et/ou les actions. S’il est utilisé sur les deux, ils seront combinés ensemble.
 
 ### Attribut Http{Méthode}
 Aussi en combinaison avec l’attribut Route, il est possible de définir la méthode de l’action avec un attribut.
@@ -77,7 +77,7 @@ Les Tag Helpers suivants peuvent être utilisés pour rediriger vers une action 
 ```
 
 ### Afficher une vue
-Quand un contrôleur est appelé, c’est lui qui décide quelle vue sera affichée. Par défaut, le code suivant affichera une vue ayant le même nom que le l’action, dans le répertoire du nom du contrôleur. Si la vue nécessite un modèle, il peut être passer en paramètre. On peut aussi donner le nom de la vue à utiliser en paramètre.
+Quand un contrôleur est appelé, c’est lui qui décide quelle vue sera affichée. Par défaut, le code suivant affichera une vue ayant le même nom que le l’action, dans le répertoire du nom du contrôleur. Si la vue nécessite un modèle, il peut être passé en paramètre. On peut aussi donner le nom de la vue à utiliser en paramètre.
 ```cs
 public ActionResult Index()
 {
@@ -99,7 +99,7 @@ Comme vue précédemment, on peut utiliser le modèle pour transférer des donn�
 ### Modèle de vue (ViewModel)
 Il est aussi possible de créer une classe spécifique pour la gestion de la page. Ce modèle fonctionne de la même façon qu’un modèle associé à des données, mais pourrait contenir plus d’information.
 ### ViewData
-L’objet `ViewData` peut également être utiliser pour transférer de l’information du contrôleur vers la vue. Il s’agit simplement d’un dictionnaire, ce qui donne une très grande flexibilité.
+L’objet `ViewData` peut également être utilisé pour transférer de l’information du contrôleur vers la vue. Il s’agit simplement d’un dictionnaire, ce qui donne une très grande flexibilité.
 
 ## Contenu
 Il est possible de retourner d’autres types de contenu que du HTML comme nous l’avons vu.

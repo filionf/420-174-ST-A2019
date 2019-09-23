@@ -32,7 +32,7 @@ Vous devriez pouvoir obtenir ceci lors que vous exécutez l'application en mode 
 ![](images/exercice1-dev.png)
 
 ### À l'étape 4
-Vous devriez pouvoir obtenir ceci lorsque vous exécutez l'application en mode "Production" sans avoir rien changé aux résultats précédents
+Vous devriez pouvoir obtenir ceci lorsque vous exécutez l'application en mode "Production", tout en conservant les mêmes résultats précédents
 ![](images/exercice1-prod.png)
 
 À l'étape 5, rien ne devrait changer le résultat, mais le code devrait être mieux structuré.

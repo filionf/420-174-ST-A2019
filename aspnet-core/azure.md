@@ -3,7 +3,7 @@ title: Azure
 ---
 
 ## Introduction
-Azure est la plateforme d’infonuagique de Microsoft. Dans la même famille qu’Amazon Web Services (AWS), Google Cloud et plusieurs autres. Microsoft Azure supporte, entre autres, le type Platform-as-a-Service (PaaS). C’est à dire qu’il est possible de bâtir une solution en utilisant seulement les services offerts par cette plateforme, sans avoir à gérer des serveurs individuellement. Il est aussi possible d’utiliser Microsoft Azure pour louer des serveurs et de les gérer soi-même si c’est ce que l’on désire. Dans ce cas, on parlera d’Infrastructure-as-a-Service (IaaS).  
+Azure est la plateforme d’infonuagique de Microsoft. Dans la même famille qu’Amazon Web Services (AWS), Google Cloud et plusieurs autres. Microsoft Azure supporte, entre autres, le type Platform-as-a-Service (PaaS). C’est-à-dire qu’il est possible de bâtir une solution en utilisant seulement les services offerts par cette plateforme, sans avoir à gérer des serveurs individuellement. Il est aussi possible d’utiliser Microsoft Azure pour louer des serveurs et de les gérer soi-même si c’est ce que l’on désire. Dans ce cas, on parlera d’Infrastructure-as-a-Service (IaaS).  
 [https://azure.microsoft.com/](https://azure.microsoft.com/){:target="_blank"}
 
 ## Déploiement sur Azure
@@ -18,10 +18,10 @@ Sélectionner le type de publication "App Service"
 ![Publier App Service](images/azure-app-service-2.png)
  
 Configurer l’application Azure
--	Nom : Doit être disponible sur Azure et représenter votre application
+-	Nom: Dois être disponible sur Azure et représenter votre application
 -	Abonnement: La plan Azure à utiliser, le mode de paiement.
 -	Groupe de ressources: Le groupe de ressources sert à garder les différentes ressources ensemble, physiquement prêt pour qu’elles aient une proximité et réduire les délais d’accès.
--	Plan d’hébergement : Le coût du service. Il existe des plans gratuits, mais il faut faire attention car ce n’est pas celui par défaut.
+-	Plan d’hébergement: Le coût du service. Il existe des plans gratuits, mais il faut faire attention, car ce n’est pas celui par défaut.
 -	Application Insights: Génère des statistiques d’utilisation et peut aider à identifier des problèmes en amont ou lorsqu’ils surviennent.
 ![Configurer App Service](images/azure-app-service-3.png)
 
@@ -31,7 +31,7 @@ Il suffit de cliquer sur "Publier"
 ![Publier](images/azure-app-service-4.png)
  
 ## Stockage par Blob
-Le [stockage](https://docs.microsoft.com/en-us/azure/storage/){:target="_blank"} par Blob est une façon parmi tant d’autres de conserver vos fichiers dans l’infonuagique. Ce type de stockage comporte plusieurs avantages, tels que la redondance, le paiement à l’utilisation et la possibilité de stocker des très gros fichiers.
+Le [stockage](https://docs.microsoft.com/en-us/azure/storage/){:target="_blank"} par Blob est une façon parmi tant d’autres de conserver vos fichiers dans l’infonuagique. Ce type de stockage comporte plusieurs avantages, tels que la redondance, le paiement à l’utilisation et la possibilité de stocker de très gros fichiers.
 
 Avant de pouvoir utiliser le stockage, vous devez avoir un compte de stockage, à créer sur le portail Azure.
 
