@@ -343,3 +343,5 @@ options.UseSqlServer(connectionString,
 [Plus d'infos sur l'historique](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/history-table){:target="_blank"}
 
 
+### Chargement des données liées (propriété d'une entité)
+[Plus d'infos sur données liées](https://docs.microsoft.com/en-us/ef/core/querying/related-data){:target="_blank"}
