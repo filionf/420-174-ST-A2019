@@ -31,7 +31,7 @@ Lorsqu’on utilise ce middleware, le client recevra un `302` pour rediriger ver
 ```cs
 app.UseStatusCodePagesWithRedirects("/error/{0}");
 ```
-Cette méthode ne supporte pas les erreurs de programmation, les `500`. Si vous voulez les supporter, vous devez utiliser cette méthode en combinaison avec la méthode `UseExceptionHandler`.
+Cette méthode s'applique à toutes les réponses dont le statut est entre 400 et 599 et dont le corps est vide. Ainsi, elle ne supporte pas les erreurs de programmation (les `500`) parce qu'il y aura habituellement un corps à la réponse. Si vous voulez les supporter, vous devrez utiliser cette méthode en combinaison avec la méthode `UseExceptionHandler`.
 
 ### UseStatusCodePagesWithReExecute
 De façon similaire à UseStatusCodePagesWithRedirects, cette méthode va permettre de personnaliser la page d’erreur selon le code, ne changera pas l’adresse dans le navigateur.
