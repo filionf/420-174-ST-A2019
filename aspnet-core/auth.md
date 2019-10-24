@@ -14,6 +14,48 @@ services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 ```
 
+Attention, le contexte peux être le même que votre base de données existante si vous en avez une, mais il doit toutefois hériter de `IdentityDbContext`.
+
+### Personnalisation de l'interface
+Si on désire utiliser l'interface de connexion qui vient avec ASP.NET, on peut également modifier le AddDefaultIdentity ainsi.
+```cs
+services.AddDefaultIdentity<IdentityUser>()
+    .AddDefaultUI(UIFramework.Bootstrap4)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+```
+Cette ligne additionnelle ajoute, entre autres, deux chemin d'accès pour se connecter ou créer un compte, soit `/Identity/Account/Login` et `/Identity/Account/Register`. Bien qu'on ne les voit pas dans le projet, plusieurs fichiers sont servient par ASP.NET pour gérer l'authentification. S'ils existaient, ils seraient sous le répertoire `Areas/Identity/`. Nous avons toutefois besoin d'ajouter un fichier essentiel au fonctionnement de ces routes, le fichier `_LoginPartial.cshtml` (Shared). Voici le contenu qui vient avec certains modèles de projet 2.2, mais vous devriez être capable de le faire générer automatiquement. Cette version est conçue pour être utilisée dans la barre de navigation avec le projet par défaut.
+
+```cs
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+  @if (SignInManager.IsSignedIn(User))
+  {
+    <li class="nav-item">
+      <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+    </li>
+    <li class="nav-item">
+      <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+      </form>
+    </li>
+  }
+  else
+  {
+    <li class="nav-item">
+      <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+  }
+</ul>
+```
+
+Ensuite, pour personnaliser l'une ou l'autre des pages reliées à IdentityFramework, vous pouvez ajouter un "Scaffolded Item" de type identity et suivez les instructions!
+
 ### Personnalisation des usagers
 Le `ApplicationDbContext` qui vient avec le modèle hérite de `DbContext`. Ça nous donne donc un modèle Entity Framework comme ce qu'on a vu jusqu'à présent et on peut personnaliser notre usager. Pour ce faire, il faut suivre quelques étapes.
 
@@ -22,19 +64,19 @@ Le `ApplicationDbContext` qui vient avec le modèle hérite de `DbContext`. Ça 
    Le type qui représentera l'usager doit utiliser hériter de `IdentityUser`, c'est sur cet usager que l'on peut ajouter les propriétés nécessaires à notre application.
 
 2. Modifier `AddDefaultIdentity`
-   
+
    Dans `ConfigureServices`, la ligne `AddDefaultIdentity` est générique, ce paramètre est le type de notre usager.
 
 3. Modifier `ApplicationDbContext`
-   
+
    Le `ApplicationDbContext` prend également quelques paramètres génériques, le premier étant le type de l'usager.
 
 4. Modifier les pages
-   
+
    Certaines pages ont comme modèle le `IdentityUser`, il faut les modifier pour qu'elles utilisent le nouveau type que nous avons créé.
 
 5. Appliquer les migrations nécessaires
-   
+
    Comme ce que nous avons vu précédemment, il ne faut pas oublier de faire nos migrations de modèle.
 
 ## Supporter différents types d'utilisateurs (rôles)
@@ -81,10 +123,10 @@ services
 [Plus d'infos](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization){:target="_blank"}
 
 ### En utilisant les rôles
-Lorsqu'un usager est connecté, c'est son token d'authentification qui sert à valider les droits. Pour contrôler l'autorisation à l'aide des rôles, il faut d'abord ajouter ces rôles au token. Cette configuration se fait dans la fonction `ConfigureServices` du `Startup`. Il faut faire attention ici car les modifications à la génération de tokens n'affectent pas ceux qui ont été générés précédemment. 
+Lorsqu'un usager est connecté, c'est son token d'authentification qui sert à valider les droits. Pour contrôler l'autorisation à l'aide des rôles, il faut d'abord ajouter ces rôles au token. Cette configuration se fait dans la fonction `ConfigureServices` du `Startup`. Il faut faire attention ici car les modifications à la génération de tokens n'affectent pas ceux qui ont été générés précédemment.
 ```cs
 services.AddScoped<
-  IUserClaimsPrincipalFactory<Usager>, 
+  IUserClaimsPrincipalFactory<Usager>,
   UserClaimsPrincipalFactory<Usager, IdentityRole>>();
 ```
 Ensuite, l'attribut `Authorize` peut être ajouté sur les méthodes ou les classes représentant les pages.
