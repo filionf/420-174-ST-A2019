@@ -14,7 +14,7 @@ services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 ```
 
-Attention, le contexte peux être le même que votre base de données existante si vous en avez une, mais il doit toutefois hériter de `IdentityDbContext`.
+Attention, le contexte peut être le même que votre base de données existante si vous en avez une, mais il doit toutefois hériter de `IdentityDbContext`.
 
 ### Personnalisation de l'interface
 Si on désire utiliser l'interface de connexion qui vient avec ASP.NET, on peut également modifier le AddDefaultIdentity ainsi.
@@ -23,9 +23,9 @@ services.AddDefaultIdentity<IdentityUser>()
     .AddDefaultUI(UIFramework.Bootstrap4)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 ```
-Cette ligne additionnelle ajoute, entre autres, deux chemin d'accès pour se connecter ou créer un compte, soit `/Identity/Account/Login` et `/Identity/Account/Register`. Bien qu'on ne les voit pas dans le projet, plusieurs fichiers sont servient par ASP.NET pour gérer l'authentification. S'ils existaient, ils seraient sous le répertoire `Areas/Identity/`. Nous avons toutefois besoin d'ajouter un fichier essentiel au fonctionnement de ces routes, le fichier `_LoginPartial.cshtml` (Shared). Voici le contenu qui vient avec certains modèles de projet 2.2, mais vous devriez être capable de le faire générer automatiquement. Cette version est conçue pour être utilisée dans la barre de navigation avec le projet par défaut.
+Cette ligne additionnelle ajoute, entre autres, deux chemins d'accès pour se connecter ou créer un compte, soit `/Identity/Account/Login` et `/Identity/Account/Register`. Bien qu'on ne les voit pas dans le projet, plusieurs fichiers sont servis par ASP.NET pour gérer l'authentification. S'ils existaient, ils seraient sous le répertoire `Areas/Identity/`. Nous avons toutefois besoin d'ajouter un fichier essentiel au fonctionnement de ces routes, le fichier `_LoginPartial.cshtml` (Shared). Voici le contenu qui vient avec certains modèles de projet 2.2, mais vous devriez être capable de le faire générer automatiquement. Cette version est conçue pour être utilisée dans la barre de navigation avec le projet par défaut.
 
-```cs
+```
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -61,7 +61,7 @@ Le `ApplicationDbContext` qui vient avec le modèle hérite de `DbContext`. Ça 
 
 1. Hériter `IdentityUser`
 
-   Le type qui représentera l'usager doit utiliser hériter de `IdentityUser`, c'est sur cet usager que l'on peut ajouter les propriétés nécessaires à notre application.
+   Le type qui représentera l'usager doit hériter de `IdentityUser`, c'est sur cet usager que l'on peut ajouter les propriétés nécessaires à notre application.
 
 2. Modifier `AddDefaultIdentity`
 
@@ -107,7 +107,7 @@ await userManager.IsInRoleAsync(user, "role");
 
 ## Contrôler l'autorisation
 ### Connecté vs. Anonyme
-Avec les pages Razor, on peut contrôler si l'usager qui accède à la page doit être authentifié par page pour par répertoire. Toutefois, s'il y a un conflit entre 2 autorisations pour une page, accès anonyme versus accès authentifié, c'est l'accès anonyme qui gagne.
+Avec les pages Razor, on peut contrôler si l'usager qui accède à la page doit être authentifié par page ou par répertoire. Toutefois, s'il y a un conflit entre 2 autorisations pour une page, accès anonyme versus accès authentifié, c'est l'accès anonyme qui gagne.
 ```cs
 services
   .AddMvc()
@@ -123,7 +123,7 @@ services
 [Plus d'infos](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization){:target="_blank"}
 
 ### En utilisant les rôles
-Lorsqu'un usager est connecté, c'est son token d'authentification qui sert à valider les droits. Pour contrôler l'autorisation à l'aide des rôles, il faut d'abord ajouter ces rôles au token. Cette configuration se fait dans la fonction `ConfigureServices` du `Startup`. Il faut faire attention ici car les modifications à la génération de tokens n'affectent pas ceux qui ont été générés précédemment.
+Lorsqu'un usager est connecté, c'est son token d'authentification qui sert à valider les droits. Pour contrôler l'autorisation à l'aide des rôles, il faut d'abord ajouter ces rôles au token. Cette configuration se fait dans la fonction `ConfigureServices` du `Startup`. Il faut faire attention ici, car les modifications à la génération de tokens n'affectent pas ceux qui ont été générés précédemment.
 ```cs
 services.AddScoped<
   IUserClaimsPrincipalFactory<Usager>,
@@ -156,9 +156,13 @@ services
 Comme vous pouvez le remarquer, nous aurons à modifier le appsettings.json pour avoir une configuration fonctionnelle.
 
 ### Enregistrer votre application sur le Portail Microsoft
-Suivez les instructions : [https://apps.dev.microsoft.com/](https://apps.dev.microsoft.com/){:target="_blank"}
-Générez un mot de passe d'application, puis ajustez votre `appsettings.json`
+Suivez les [instructions](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-2.2){:target="_blank"}
+
+En gros, vous aurez besoin de :
+1. Créer une nouvelle application (d'enregistrer l'application que vous développez).
+2. D'ajouter un client web, en spécifiant l'URL de redirection qui devrait être similaire à `http://{host}:{port}/signin-microsoft`
+3. Obtenir le ClientId, générer le ClientSecret, puis ajuster votre configuration.
 
 ### Ajouter une plateforme (web)
-La plateforme demande une URL de retour. Cette URL sert à renvoyer le code d'accès. Dans le cas de l'authentification Microsoft, la valeur par défaut est `/signin-microsoft`. Puisque nous sommes en mode développement, il suffit d'entrer notre URL de développement (qui doit être HTTPS) mais si ne faut pas oublier d'ajouter l'URL de production au déploiement.
+La plateforme demande une URL de retour. Cette URL sert à renvoyer le code d'accès. Dans le cas de l'authentification Microsoft, la valeur par défaut est `/signin-microsoft`. Puisque nous sommes en mode développement, il suffit d'entrer notre URL de développement (qui doit être HTTPS), mais si ne faut pas oublier d'ajouter l'URL de production au déploiement.
 
