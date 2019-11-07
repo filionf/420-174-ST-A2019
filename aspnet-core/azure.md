@@ -52,6 +52,24 @@ CloudBlockBlob blob = conteneur.GetBlockBlobReference(<Nom>);
 await conteneur.CreateIfNotExistsAsync();
 await blob.UploadFromStreamAsync(<stream>);
 ```
+4. Modifier les attributs d'un fichier
+```cs
+CloudStorageAccount compte = CloudStorageAccount.Parse(<Connection>);
+CloudBlobClient blobClient = compte.CreateCloudBlobClient();
+CloudBlobContainer conteneur = blobClient.GetContainerReference(<Nom>);
+CloudBlockBlob blob = conteneur.GetBlockBlobReference(<Nom>);
+blob.Properties.ContentType = Input.ImageProfil.ContentType;
+await blob.SetPropertiesAsync();
+```
+5. Retourner un blob comme réponse
+```cs
+CloudStorageAccount compte = CloudStorageAccount.Parse(_config.GetConnectionString("BlobStorage"));
+CloudBlobClient blobClient = compte.CreateCloudBlobClient();
+CloudBlobContainer conteneur = blobClient.GetContainerReference("musique");
+CloudBlockBlob blob = conteneur.GetBlockBlobReference($"{user.Id}");
+await blob.FetchAttributesAsync();
+return new FileStreamResult(await blob.OpenReadAsync(), blob.Properties.ContentType);
+```
 
 Plusieurs autres opérations sont disponibles avec l’API.
 - [Stockage Azure](https://docs.microsoft.com/en-us/dotnet/api/overview/azure/storage?view=azure-dotnet){:target="_blank"}
