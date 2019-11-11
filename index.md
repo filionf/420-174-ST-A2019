@@ -4,8 +4,8 @@ description: Suppléments technologiques (A2019)
 ---
 
 1. [ASP.NET Core](aspnet-core/)
-2. [Docker](docker/)
-3. [Stripe](stripe/)
+2. [Stripe](stripe/)
+3. [Docker](docker/)
 4. [ASP.NET Web Forms](aspnet-webforms/)
 
 [Exercices formatifs](exercices-formatifs)
