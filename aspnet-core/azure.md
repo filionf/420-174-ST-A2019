@@ -73,5 +73,5 @@ return new FileStreamResult(await blob.OpenReadAsync(), blob.Properties.ContentT
 
 Plusieurs autres opérations sont disponibles avec l’API.
 - [Stockage Azure](https://docs.microsoft.com/en-us/dotnet/api/overview/azure/storage?view=azure-dotnet){:target="_blank"}
-- [Stockage Blob](https://docs.microsoft.com/en-us/dotnet/api/microsoft.windowsazure.storage.blob?view=azure-dotnet){:target="_blank"}
+- [Stockage Blob](https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.storage.blob?view=azure-dotnet){:target="_blank"}
  
