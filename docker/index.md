@@ -9,22 +9,8 @@ title: Docker
 
 
 
-
-
 ### Exercices
 1. [Exécuter une image](exercices/exercice1)
+2. [Bâtir une image](exercices/exercice2)
 
 
-#### Commandes sur les images
-
-| Commande | Description |
-|----------|-------------|
-| [docker build](https://docs.docker.com/engine/reference/commandline/rmi/){:target="_blank"} | Crée une image |
-| [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/){:target="_blank"} | Supprime une image |
-
-  
-### Exercices
-1. [Exécuter une image](exercices/exercice1)
-
-
-  

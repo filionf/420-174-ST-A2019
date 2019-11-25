@@ -14,6 +14,17 @@ La création d'une image débute par un fichier "[Dockerfile](https://docs.docke
 Une fois le fichier prêt, on utilise la commande [docker build](https://docs.docker.com/engine/reference/commandline/build/){:target="_blank"} pour bâtir l'image et [docker push](https://docs.docker.com/engine/reference/commandline/push/){:target="_blank"} pour publier l'image sur un registre de conteneurs.
 
 
+```docker
+# Débute avec l'image alpine
+FROM alpine
+# Change le répertoire d'exécution à l'intérieur de l'image
+WORKDIR /app
+# Copie le fichier message.txt sur l'ordinateur local vers le répertoire courant de l'image
+COPY message.txt .
+# Définis la commande par défaut
+CMD [ "cat", "message.txt" ]
+```
+
 ## Images à plusieurs niveaux
 
 Un des objectifs importants à réussir lorsqu'on bâtit une image est d'obtenir une image de la taille la plus petite possible pour des raisons de performances. Ainsi, la méthode préconisée est d'utiliser la [génération à plusieurs niveaux](https://docs.docker.com/develop/develop-images/multistage-build/){:target="_blank"}. C'est-à-dire qu'une première image servira à bâtir l'application, elle aura donc besoin des outils de développements alors que l'image finale n'aura besoin que du runtime comme base, et utilisera le résultat des étapes précédentes.

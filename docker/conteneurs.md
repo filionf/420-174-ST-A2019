@@ -5,7 +5,7 @@ description: Conteneurs
 
 Les conteneurs sont l'exécution des images. Pour en exécuter un, il suffit d'exécuter la commande [docker run](https://docs.docker.com/engine/reference/commandline/run/){:target="_blank"}, qui peut prendre plusieurs paramètres.
 
-Une fois le processus prinpical terminé, le conteneur se ferme automatiquement.
+Une fois le processus principal terminé, le conteneur se ferme automatiquement.
 
 ## Commandes sur les conteneurs
 
