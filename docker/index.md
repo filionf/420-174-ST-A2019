@@ -12,5 +12,4 @@ title: Docker
 ### Exercices
 1. [Exécuter une image](exercices/exercice1)
 2. [Bâtir une image](exercices/exercice2)
-
-
+3. [Déployer une image](exercices/exercice3)
