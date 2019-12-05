@@ -11,4 +11,4 @@ title: ASP.NET Core
 7. [Authentification](auth)
 8. [Azure](azure)
 9. [MVC](mvc)
-
+10. [Internationalisation](i18n)
